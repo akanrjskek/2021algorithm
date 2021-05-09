@@ -1,55 +1,53 @@
 package Lecture;
 
 class Tree{
-	public class Node{
+	class Node{
 		int data;
 		Node left;
 		Node right;
-		Node(int data){
+		public Node(int data) {
 			this.data = data;
 		}
 	}
-	
 	Node root;
 	public void makeTree(int a[]) {
-		root = makeBTreeR(a,0,a.length-1);
+		root = makeTreeR(a, 0, a.length - 1);
 	}
 	
-	public Node makeBTreeR(int a[], int start, int end) {
+	public Node makeTreeR(int a[], int start, int end) {
 		if(start > end) return null;
-		
 		int mid = (start + end) / 2;
-		Node node = new Node(a[mid]);
-		node.left = makeBTreeR(a, start, mid - 1);
-		node.right = makeBTreeR(a, mid + 1, end);
-		return node;
+		Node newnode = new Node(a[mid]);
+		newnode.left = makeTreeR(a, start, mid - 1);
+		newnode.right = makeTreeR(a, mid + 1, end);
+		return newnode;
 	}
 	
-	public void searchBTree(Node node, int find) {
-		if(node.data > find) {
-			System.out.println("Data is smaller than " + node.data);
-			searchBTree(node.left,find);
+	public void searchTree(Node node, int value) {
+		if(node.data > value) {
+			System.out.println(value + " is less than " + node.data);
+			searchTree(node.left, value);
 		}
-		else if(node.data < find) {
-			System.out.println("Data is bigger than " + node.data);
-			searchBTree(node.right,find);
+		else if(node.data < value) {
+			System.out.println(value + " is bigger than " + node.data);
+			searchTree(node.right, value);
 		}
 		else {
-			System.out.println("Find Data!");
+			System.out.println("data find!");
 		}
+	
 	}
 }
-
 public class 이진검색트리 {
 
 	public static void main(String[] args) {
-		int[] a = new int[10];
+		int a[] = new int[10];
 		for (int i = 0; i < a.length; i++) {
-			a[i] = i;
+			a[i] = (i+1) * 2;
 		}
 		Tree tree = new Tree();
 		tree.makeTree(a);
-		tree.searchBTree(tree.root,4);
+		tree.searchTree(tree.root, a[2]);
 	}
 
 }
