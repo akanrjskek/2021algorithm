@@ -17,37 +17,38 @@ class Tree{
 	public Node makeTreeR(int a[], int start, int end) {
 		if(start > end) return null;
 		int mid = (start + end) / 2;
-		Node newnode = new Node(a[mid]);
-		newnode.left = makeTreeR(a, start, mid - 1);
-		newnode.right = makeTreeR(a, mid + 1, end);
-		return newnode;
+		Node newNode = new Node(a[mid]);
+		newNode.left = makeTreeR(a, start, mid - 1);
+		newNode.right = makeTreeR(a, mid + 1, end);
+		return newNode;
 	}
 	
-	public void searchTree(Node node, int value) {
-		if(node.data > value) {
-			System.out.println(value + " is less than " + node.data);
-			searchTree(node.left, value);
+	public void searchTree(Node node, int find) {
+		if(node.data > find) {
+			System.out.println(find + " is lower than " + node.data);
+			searchTree(node.left, find);
 		}
-		else if(node.data < value) {
-			System.out.println(value + " is bigger than " + node.data);
-			searchTree(node.right, value);
+		
+		else if(node.data < find) {
+			System.out.println(find + " is higher than " + node.data);
+			searchTree(node.right, find);
 		}
+		
 		else {
-			System.out.println("data find!");
+			System.out.println(find + " find!");
 		}
-	
 	}
 }
 public class 이진검색트리 {
 
 	public static void main(String[] args) {
-		int a[] = new int[10];
+		int[] a = new int[10];
 		for (int i = 0; i < a.length; i++) {
-			a[i] = (i+1) * 2;
+			a[i] = i;
 		}
 		Tree tree = new Tree();
 		tree.makeTree(a);
-		tree.searchTree(tree.root, a[2]);
+		tree.searchTree(tree.root, 2);
 	}
 
 }
