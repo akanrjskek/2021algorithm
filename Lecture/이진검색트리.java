@@ -11,7 +11,7 @@ class Tree{
 	}
 	Node root;
 	public void makeTree(int a[]) {
-		root = makeTreeR(a, 0, a.length - 1);
+		root = makeTreeR(a, 0, a.length-1);
 	}
 	
 	public Node makeTreeR(int a[], int start, int end) {
@@ -23,19 +23,19 @@ class Tree{
 		return newnode;
 	}
 	
-	public void searchTree(Node node, int value) {
-		if(node.data > value) {
-			System.out.println(value + " is less than " + node.data);
-			searchTree(node.left, value);
+	public void searchTree(Node node, int find) {
+		if(node.data > find) {
+			System.out.println(find + " is less than " + node.data);
+			searchTree(node.left, find);
 		}
-		else if(node.data < value) {
-			System.out.println(value + " is bigger than " + node.data);
-			searchTree(node.right, value);
+		
+		else if(node.data < find) {
+			System.out.println(find + " is higher than " + node.data);
+			searchTree(node.right, find);
 		}
 		else {
-			System.out.println("data find!");
+			System.out.println(find + " find!");
 		}
-	
 	}
 }
 public class 이진검색트리 {
@@ -43,11 +43,12 @@ public class 이진검색트리 {
 	public static void main(String[] args) {
 		int a[] = new int[10];
 		for (int i = 0; i < a.length; i++) {
-			a[i] = (i+1) * 2;
+			a[i] = i;
 		}
+		
 		Tree tree = new Tree();
 		tree.makeTree(a);
-		tree.searchTree(tree.root, a[2]);
+		tree.searchTree(tree.root, 4);
 	}
 
 }
