@@ -5,45 +5,46 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class 다익스트라 {
-	private static int v,e;
-	private static int[][] adj;
-	private static int[] distance;
-	private static boolean[] visit;
-	public static void dijkstra(int[][] adj) {
+	private static int v,e, adj[][]; // vertex, edge, 인접경로 2차원배열
+	private static int distance[];
+	private static boolean visit[];
+	
+	private static void dijkstra() {
 		distance = new int[v];
 		visit = new boolean[v];
-		
-		for (int i = 0; i < adj.length; i++) {
+		for (int i = 0; i < v; i++) {
 			distance[i] = Integer.MAX_VALUE;
 		}
-		distance[0] = 0; 
+		distance[0] = 0;
+		
 		for (int i = 0; i < v; i++) {
 			int minvertex = findminvertex();
 			visit[minvertex] = true;
 			for (int j = 0; j < v; j++) {
-				if(adj[minvertex][j] != 0 && distance[minvertex] != Integer.MAX_VALUE && !visit[j]) { // 1. 현재 vertex에서 j로의 연결 확인, 2. 출발지가 아닌이상 distance는 업데이트 되있어야한다. 3. minvertex로 썼었는지 확인.
-					int newdistance = adj[minvertex][j] + distance[minvertex]; // 현재 vertex에서 j까지의 거리 + 현재 vertex까지의 거리
-					if(newdistance < distance[j]) {
-						distance[j] = newdistance;
+				if(!visit[j] && adj[minvertex][j] != 0 && distance[minvertex] != Integer.MAX_VALUE){
+					int dis = adj[minvertex][j] + distance[minvertex];
+					if(dis < distance[j]) {
+						distance[j] = dis;
 					}
 				}
-				
 			}
 		}
-		for (int i = 0; i < adj.length; i++) {
-			System.out.println(i + "까지의 최단거리 : " + distance[i]);
+		
+		for (int j = 0; j < v; j++) {
+			System.out.println(j + "까지의 최단 거리 : " + distance[j]);
 		}
 	}
 	
-	public static int findminvertex() {
+	private static int findminvertex() {
 		int minvalue = -1;
 		for (int i = 0; i < v; i++) {
-			if(!visit[i] && (minvalue == -1 || distance[i] < distance[minvalue])) { // 방문안했고 distance가 가장 짧은 vertex
+			if(!visit[i] && (minvalue == -1 || distance[i] < distance[minvalue])) {
 				minvalue = i;
 			}
 		}
 		return minvalue;
 	}
+	
 	public static void main(String args[]) throws Exception{
 		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(bf.readLine());
@@ -58,7 +59,8 @@ public class 다익스트라 {
 			adj[v1][v2] = weight;
 			adj[v2][v1] = weight;
 		}
-		dijkstra(adj);
+		dijkstra();
+		
 	}
 }
 
