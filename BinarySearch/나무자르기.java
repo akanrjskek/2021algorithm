@@ -3,7 +3,7 @@ package BinarySearch;
 import java.util.*;
 import java.io.*;
 
-public class ë‚˜ë¬´ìë¥´ê¸°{
+public class ³ª¹«ÀÚ¸£±â{
 	private static int N,M;
 	private static int[] trees;
 	public static void main(String[] args) throws Exception{
