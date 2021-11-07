@@ -5,48 +5,47 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class 예산 {
+	private static int N,M;
+	private static int[] local;
+	private static long start = 1, end = 1000000000;
     public static void main(String[] args) throws Exception {
+        // Input
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(bf.readLine());
-        int N = Integer.parseInt(st.nextToken());
+        StringTokenizer st;
+        N = Integer.parseInt(bf.readLine());
+        local = new int[N];
         st = new StringTokenizer(bf.readLine());
-        int[] regions = new int[N];
-        for (int i = 0; i < regions.length; ++i) {
-            regions[i] = Integer.parseInt(st.nextToken());
+        for(int i = 0; i < N; ++i) {
+        	local[i] = Integer.parseInt(st.nextToken());
         }
-        st = new StringTokenizer(bf.readLine());
-        int M = Integer.parseInt(st.nextToken()); // 출력값은 나오므로 다음 줄부터 확인.
-            Arrays.sort(regions);
-            int start = 0;
-            int end = regions[regions.length - 1];
-            long sum = 0;
-            int mid = 0;
-            while (start <= end) {
-                sum = 0;
-                mid = (start + end) / 2;
-                sum = request(regions, mid);
-                if (sum < M) {
-                    start = mid + 1;
-                } else if (sum > M) {
-                    end = mid - 1;
-                } else {
-                    end = mid;
-                    break;
-                }
-            }
-            System.out.println(end);
+        Arrays.sort(local);
+        M = Integer.parseInt(bf.readLine());
+        
+        //Logic
+        long mid;
+        while(start <= end) {
+        	mid = (start + end) / 2;
+        	if(request(mid)) {
+        		start = mid + 1;
+        		if(local[N - 1] <= mid) {
+        			end = local[N - 1];
+        			break;
+        		}
+        	}
+        	else {
+        		end = mid - 1;
+        	}
+        }
+        System.out.println(end);
     }
-    public static long request(int[] a, int b) {
-        long sum = 0;
-        for (int i = 0; i < a.length; ++i) {
-            if (b < a[i]) {
-                sum += b;
-            }
-            else {
-                sum += a[i];
-            }
-
-        }
-        return sum;
+    
+    private static boolean request(long mid) {
+    	int sum = 0;
+    	for(int i = 0; i < N; ++i) {
+    		if(local[i] < mid) sum += local[i];
+    		else sum += mid;
+    		if(sum > M) return false;
+    	}
+    	return true;
     }
 }

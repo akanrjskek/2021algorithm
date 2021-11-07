@@ -25,11 +25,8 @@ class Tree{
 	
 	public void searchTree(Node node, int find) {
 		if(node.data > find) {
-<<<<<<< HEAD
 			System.out.println(find + " is less than " + node.data);
-=======
 			System.out.println(find + " is lower than " + node.data);
->>>>>>> a481ff5fdadf7b0722ab2ced9d26052a2cb93e45
 			searchTree(node.left, find);
 		}
 		
@@ -53,11 +50,8 @@ public class 이진검색트리 {
 		
 		Tree tree = new Tree();
 		tree.makeTree(a);
-<<<<<<< HEAD
 		tree.searchTree(tree.root, 4);
-=======
 		tree.searchTree(tree.root, 2);
->>>>>>> a481ff5fdadf7b0722ab2ced9d26052a2cb93e45
 	}
 
 }

@@ -38,7 +38,7 @@ public class 공유기설치 {
             }else{
                 right = mid-1;
             }
-         }
+        }
         System.out.println(ans);
     }
 }

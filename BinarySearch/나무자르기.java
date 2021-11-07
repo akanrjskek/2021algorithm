@@ -3,7 +3,7 @@ package BinarySearch;
 import java.util.*;
 import java.io.*;
 
-public class ë‚˜ë¬´ìë¥´ê¸°{
+public class ³ª¹«ÀÚ¸£±â{
 	private static int N,M;
 	private static int[] trees;
 	public static void main(String[] args) throws Exception{
@@ -13,31 +13,33 @@ public class ë‚˜ë¬´ìë¥´ê¸°{
 		M = Integer.parseInt(st.nextToken());
 		trees = new int[N];
 		st = new StringTokenizer(bf.readLine());
-		for (int i = 0; i < trees.length; i++) {
+		for(int i = 0; i < N; ++i) {
 			trees[i] = Integer.parseInt(st.nextToken());
 		}
-		int start = 0;
-		Arrays.sort(trees);
-		int end = trees[trees.length-1];
+		int start = 1;
+		int end = 1000000000;
 		while(start <= end) {
 			int mid = (start + end) / 2;
-			long sum = 0;
-			for (int i = 0; i < trees.length; i++) {
-				if(mid < trees[i]) {
-					sum += (trees[i] - mid);
-				}
-			}
-			if(sum == M) {
-				end = mid;
-				break;
-			}
-			else if(sum < M) {
-				end = mid - 1;
+			if(function(mid)) {
+				start = mid + 1;
 			}
 			else {
-				start = mid + 1;
+				end = mid - 1;
 			}
 		}
 		System.out.println(end);
+	}
+	
+	private static boolean function(int mid) {
+		int answer = 0;
+		for(int i = 0; i < N; ++i) {
+			if(trees[i] > mid) {
+				answer += trees[i] - mid;
+				if(answer >= M) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

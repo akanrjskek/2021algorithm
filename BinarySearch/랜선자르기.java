@@ -9,36 +9,29 @@ public class 랜선자르기 {
 	private static int K,N;
 	private static long cal;
 	private static int lan[];
+	private static long start = 1, end = Integer.MAX_VALUE;
 	public static void main(String[] args) throws Exception{
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(bf.readLine());
+		st = new StringTokenizer(bf.readLine());
 		K = Integer.parseInt(st.nextToken());
 		N = Integer.parseInt(st.nextToken());
 		lan = new int[K];
-		for (int i = 0; i < lan.length; i++) {
+		for(int i = 0; i < K; ++i) {	
 			lan[i] = Integer.parseInt(bf.readLine());
 		}
-		Arrays.sort(lan);
-		long start = 1;
-		long end = lan[lan.length-1];
-		long mid = 0;
+		
 		while(start <= end) {
-			mid = (start + end) / 2; // 계산값에서 int범위 초과 가능
 			cal = 0;
-			
-			for (int i = 0; i < lan.length; i++) {
+			long mid = (start + end) / 2;
+			for(int i = 0; i < K; ++i) {
 				cal += lan[i] / mid;
 			}
-			if(cal >= N) {
-				start = mid + 1;
-			}
-			else{
-				end = mid - 1;
-			}
-			
+			if(cal >= N) start = mid + 1;
+			else end = mid - 1;
 		}
+		
 		System.out.println(end);
-		System.out.println(Integer.MAX_VALUE);
+		
 	}
-	
+	private static BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
+	private static StringTokenizer st;
 }
